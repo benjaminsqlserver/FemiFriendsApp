@@ -1,0 +1,43 @@
+{
+  "dataSources": [
+    "conData"
+  ],
+  "generator": "@radzen/blazor-server",
+  "https": false,
+  "ignore": [
+    "\\server\\Database\\SQLQuery.sql"
+  ],
+  "layouts": [
+    "Login",
+    "Main"
+  ],
+  "logo": "",
+  "name": "FemiFriendsApp",
+  "navigation": [
+    "Countries",
+    "Genders",
+    "My Friends",
+    "States"
+  ],
+  "pages": [
+    "Countries",
+    "Add Country",
+    "Edit Country",
+    "Genders",
+    "Add Gender",
+    "Edit Gender",
+    "My Friends",
+    "Add My Friend",
+    "Edit My Friend",
+    "States",
+    "Add State",
+    "Edit State"
+  ],
+  "port": 8000,
+  "serverLang": "cs",
+  "serverPort": 5000,
+  "serverProject": true,
+  "serverVersion": "3",
+  "startPage": "Countries",
+  "theme": "default"
+}

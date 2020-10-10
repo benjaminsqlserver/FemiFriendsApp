@@ -1,0 +1,726 @@
+{
+  "components": [
+    {
+      "type": "content",
+      "container": "main",
+      "components": [
+        {
+          "type": "row",
+          "components": [
+            {
+              "type": "col",
+              "class": "col-md-12",
+              "components": [
+                {
+                  "type": "template-form",
+                  "name": "form0",
+                  "components": [
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "First Name",
+                              "component": "FirstName",
+                              "name": "FirstNameLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "string",
+                              "maxLength": 50,
+                              "type": "textbox",
+                              "name": "FirstName",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${myfriend.FirstName}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "FirstNameRequiredValidator",
+                              "component": "FirstName",
+                              "text": "FirstName is required",
+                              "style": {
+                                "position": "absolute"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Other Names",
+                              "component": "OtherNames",
+                              "name": "OtherNamesLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "string",
+                              "maxLength": 101,
+                              "type": "textbox",
+                              "name": "OtherNames",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "value": "${myfriend.OtherNames}"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Surname",
+                              "component": "Surname",
+                              "name": "SurnameLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "string",
+                              "maxLength": 50,
+                              "type": "textbox",
+                              "name": "Surname",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${myfriend.Surname}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "SurnameRequiredValidator",
+                              "component": "Surname",
+                              "text": "Surname is required",
+                              "style": {
+                                "position": "absolute"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Gender",
+                              "component": "GenderID",
+                              "name": "GenderIDLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "data": "${getGendersResult}",
+                              "textProperty": "GenderName",
+                              "valueProperty": "GenderID",
+                              "placeholder": "Choose Gender",
+                              "valueType": "int",
+                              "type": "dropdown",
+                              "name": "GenderID",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${myfriend.GenderID}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "GenderIDRequiredValidator",
+                              "component": "GenderID",
+                              "text": "GenderID is required",
+                              "style": {
+                                "position": "absolute"
+                              },
+                              "defaultValue": "0"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Date Of Birth",
+                              "component": "DateOfBirth",
+                              "name": "DateOfBirthLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "DateTime",
+                              "dateFormat": "dd MMMM yyyy",
+                              "type": "datepicker",
+                              "name": "DateOfBirth",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${myfriend.DateOfBirth}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "DateOfBirthRequiredValidator",
+                              "component": "DateOfBirth",
+                              "text": "DateOfBirth is required",
+                              "style": {
+                                "position": "absolute"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Residential Address",
+                              "component": "ResidentialAddress",
+                              "name": "ResidentialAddressLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "string",
+                              "type": "textbox",
+                              "name": "ResidentialAddress",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${myfriend.ResidentialAddress}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "ResidentialAddressRequiredValidator",
+                              "component": "ResidentialAddress",
+                              "text": "ResidentialAddress is required",
+                              "style": {
+                                "position": "absolute"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "City",
+                              "component": "City",
+                              "name": "CityLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "string",
+                              "maxLength": 50,
+                              "type": "textbox",
+                              "name": "City",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${myfriend.City}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "CityRequiredValidator",
+                              "component": "City",
+                              "text": "City is required",
+                              "style": {
+                                "position": "absolute"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Country",
+                              "component": "CountryID",
+                              "name": "CountryIDLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "data": "${getCountriesResult}",
+                              "textProperty": "CountryName",
+                              "valueProperty": "CountryID",
+                              "placeholder": "Choose Country",
+                              "valueType": "int",
+                              "type": "dropdown",
+                              "name": "CountryID",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${myfriend.CountryID}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "CountryIDRequiredValidator",
+                              "component": "CountryID",
+                              "text": "CountryID is required",
+                              "style": {
+                                "position": "absolute"
+                              },
+                              "defaultValue": "0"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "State",
+                              "component": "StateID",
+                              "name": "StateIDLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "data": "${getStatesResult}",
+                              "textProperty": "StateName",
+                              "valueProperty": "StateID",
+                              "placeholder": "Choose State",
+                              "valueType": "int?",
+                              "type": "dropdown",
+                              "name": "StateID",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "value": "${myfriend.StateID}"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Whatsapp Number",
+                              "component": "WhatsappNumber",
+                              "name": "WhatsappNumberLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "string",
+                              "maxLength": 50,
+                              "type": "textbox",
+                              "name": "WhatsappNumber",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "value": "${myfriend.WhatsappNumber}"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Other Phone Number",
+                              "component": "OtherPhoneNumber",
+                              "name": "OtherPhoneNumberLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "string",
+                              "maxLength": 50,
+                              "type": "textbox",
+                              "name": "OtherPhoneNumber",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "value": "${myfriend.OtherPhoneNumber}"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Email",
+                              "component": "Email",
+                              "name": "EmailLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "string",
+                              "maxLength": 50,
+                              "type": "textbox",
+                              "name": "Email",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "value": "${myfriend.Email}"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Photo",
+                              "component": "Photo",
+                              "name": "PhotoLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "string",
+                              "type": "textbox",
+                              "name": "Photo",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "value": "${myfriend.Photo}"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col offset-sm-3",
+                          "components": [
+                            {
+                              "type": "button",
+                              "buttonType": "submit",
+                              "icon": "save",
+                              "text": "Save",
+                              "buttonStyle": "primary"
+                            },
+                            {
+                              "type": "button",
+                              "buttonStyle": "light",
+                              "text": "Cancel",
+                              "events": {
+                                "click": [
+                                  {
+                                    "type": "close-popup"
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "events": {
+                    "submit": [
+                      {
+                        "error": [
+                          {
+                            "detail": "Unable to create new MyFriend!",
+                            "severity": "error",
+                            "summary": "Error",
+                            "type": "notify"
+                          }
+                        ],
+                        "name": "conData.createMyFriend",
+                        "parameters": [
+                          {
+                            "name": "MyFriend",
+                            "value": "${myfriend}"
+                          }
+                        ],
+                        "then": [
+                          {
+                            "type": "close-popup",
+                            "result": "${myfriend}"
+                          }
+                        ],
+                        "type": "invoke"
+                      }
+                    ]
+                  },
+                  "data": "${myfriend}",
+                  "visible": "${myfriend != null}",
+                  "itemType": "FemiFriendsApp.Models.ConData.MyFriend"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "conData.getGenders",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getGendersResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<FemiFriendsApp.Models.ConData.Gender>"
+          }
+        ],
+        "type": "invoke"
+      },
+      {
+        "name": "conData.getCountries",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getCountriesResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<FemiFriendsApp.Models.ConData.Country>"
+          }
+        ],
+        "type": "invoke"
+      },
+      {
+        "name": "conData.getStates",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getStatesResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<FemiFriendsApp.Models.ConData.State>"
+          }
+        ],
+        "type": "invoke"
+      },
+      {
+        "name": "myfriend",
+        "type": "set",
+        "value": "new FemiFriendsApp.Models.ConData.MyFriend(){}",
+        "valueType": "FemiFriendsApp.Models.ConData.MyFriend"
+      }
+    ]
+  },
+  "name": "Add My Friend",
+  "layout": "Main",
+  "access": []
+}

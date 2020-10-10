@@ -1,0 +1,66 @@
+﻿@page "/my-friends"
+@layout MainLayout
+@inherits FemiFriendsApp.Pages.MyFriendsComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using FemiFriendsApp.Models.ConData
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="My Friends">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
+        </RadzenButton>
+        <RadzenGrid @ref="grid0" AllowFiltering="true" FilterMode="FilterMode.Advanced" AllowPaging="true" AllowSorting="true" Data="@getMyFriendsResult" TItem="FemiFriendsApp.Models.ConData.MyFriend" RowSelect="@Grid0RowSelect">
+          <Columns>
+            <RadzenGridColumn TItem="FemiFriendsApp.Models.ConData.MyFriend" Property="FriendID" Title="Friend ID">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="FemiFriendsApp.Models.ConData.MyFriend" Property="FirstName" Title="First Name">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="FemiFriendsApp.Models.ConData.MyFriend" Property="OtherNames" Title="Other Names">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="FemiFriendsApp.Models.ConData.MyFriend" Property="Surname" Title="Surname">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="FemiFriendsApp.Models.ConData.MyFriend" Property="GenderID" SortProperty="Gender.GenderName" FilterProperty="Gender.GenderName" Title="Gender">
+              <Template Context="data">
+              @(data.Gender?.GenderName)
+              </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="FemiFriendsApp.Models.ConData.MyFriend" Property="DateOfBirth" FormatString="{0:dd MMMM yyyy}" Title="Date Of Birth">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="FemiFriendsApp.Models.ConData.MyFriend" Property="ResidentialAddress" Title="Residential Address">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="FemiFriendsApp.Models.ConData.MyFriend" Property="City" Title="City">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="FemiFriendsApp.Models.ConData.MyFriend" Property="CountryID" SortProperty="Country.CountryName" FilterProperty="Country.CountryName" Title="Country">
+              <Template Context="data">
+              @(data.Country?.CountryName)
+              </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="FemiFriendsApp.Models.ConData.MyFriend" Property="StateID" SortProperty="State.StateName" FilterProperty="State.StateName" Title="State">
+              <Template Context="data">
+              @(data.State?.StateName)
+              </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="FemiFriendsApp.Models.ConData.MyFriend" Property="WhatsappNumber" Title="Whatsapp Number">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="FemiFriendsApp.Models.ConData.MyFriend" Property="OtherPhoneNumber" Title="Other Phone Number">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="FemiFriendsApp.Models.ConData.MyFriend" Property="Email" Title="Email">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="FemiFriendsApp.Models.ConData.MyFriend" Property="Photo" Title="Photo">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="FemiFriendsApp.Models.ConData.MyFriend" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+              <Template Context="femiFriendsAppModelsConDataMyFriend">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, femiFriendsAppModelsConDataMyFriend))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenGridColumn>
+          </Columns>
+        </RadzenGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

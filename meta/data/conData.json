@@ -1,0 +1,910 @@
+{
+  "info": {
+    "title": "conData",
+    "x-type": "odata",
+    "x-connector": "mssql",
+    "x-connector-version": 15
+  },
+  "definitions": {
+    "Country": {
+      "x-table": "dbo.Countries",
+      "resource": "Countries",
+      "required": [
+        "CountryName"
+      ],
+      "properties": {
+        "CountryID": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "type": "integer",
+          "x-navigation": [
+            {
+              "inversePropertyName": "Country",
+              "name": "MyFriends",
+              "type": "MyFriend"
+            }
+          ]
+        },
+        "CountryName": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "MyFriends": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MyFriend"
+          }
+        }
+      }
+    },
+    "Gender": {
+      "x-table": "dbo.Genders",
+      "resource": "Genders",
+      "required": [
+        "GenderName"
+      ],
+      "properties": {
+        "GenderID": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "type": "integer",
+          "x-navigation": [
+            {
+              "inversePropertyName": "Gender",
+              "name": "MyFriends",
+              "type": "MyFriend"
+            }
+          ]
+        },
+        "GenderName": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "MyFriends": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MyFriend"
+          }
+        }
+      }
+    },
+    "MyFriend": {
+      "x-table": "dbo.MyFriends",
+      "resource": "MyFriends",
+      "required": [
+        "FirstName",
+        "Surname",
+        "GenderID",
+        "DateOfBirth",
+        "ResidentialAddress",
+        "City",
+        "CountryID"
+      ],
+      "properties": {
+        "FriendID": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "type": "integer",
+          "format": "int64"
+        },
+        "FirstName": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "OtherNames": {
+          "type": "string",
+          "length": 101
+        },
+        "Surname": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "Gender": {
+          "type": "object",
+          "$ref": "#/definitions/Gender"
+        },
+        "GenderID": {
+          "x-nullable": false,
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "Genders",
+            "parentEntityType": "Gender",
+            "type": "Gender",
+            "principalKey": "GenderID",
+            "name": "Gender",
+            "textProperty": "GenderName",
+            "navigationProperty": "MyFriends"
+          }
+        },
+        "DateOfBirth": {
+          "x-nullable": false,
+          "type": "string",
+          "format": "date-time",
+          "x-datetime": "datetime"
+        },
+        "ResidentialAddress": {
+          "x-nullable": false,
+          "type": "string"
+        },
+        "City": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "Country": {
+          "type": "object",
+          "$ref": "#/definitions/Country"
+        },
+        "CountryID": {
+          "x-nullable": false,
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "Countries",
+            "parentEntityType": "Country",
+            "type": "Country",
+            "principalKey": "CountryID",
+            "name": "Country",
+            "textProperty": "CountryName",
+            "navigationProperty": "MyFriends"
+          }
+        },
+        "State": {
+          "type": "object",
+          "$ref": "#/definitions/State"
+        },
+        "StateID": {
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "States",
+            "parentEntityType": "State",
+            "type": "State",
+            "principalKey": "StateID",
+            "name": "State",
+            "textProperty": "StateName",
+            "navigationProperty": "MyFriends"
+          }
+        },
+        "WhatsappNumber": {
+          "type": "string",
+          "length": 50
+        },
+        "OtherPhoneNumber": {
+          "type": "string",
+          "length": 50
+        },
+        "Email": {
+          "type": "string",
+          "length": 50
+        },
+        "Photo": {
+          "type": "string"
+        }
+      }
+    },
+    "State": {
+      "x-table": "dbo.States",
+      "resource": "States",
+      "required": [
+        "StateName"
+      ],
+      "properties": {
+        "StateID": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "type": "integer",
+          "x-navigation": [
+            {
+              "inversePropertyName": "State",
+              "name": "MyFriends",
+              "type": "MyFriend"
+            }
+          ]
+        },
+        "StateName": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "CountryID": {
+          "type": "integer"
+        },
+        "MyFriends": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MyFriend"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/Countries": {
+      "get": {
+        "operationId": "getCountries",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/Country"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createCountry",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Country",
+            "schema": {
+              "$ref": "#/definitions/Country"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/Country"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Genders": {
+      "get": {
+        "operationId": "getGenders",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/Gender"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createGender",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Gender",
+            "schema": {
+              "$ref": "#/definitions/Gender"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/Gender"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/MyFriends": {
+      "get": {
+        "operationId": "getMyFriends",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/MyFriend"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createMyFriend",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "MyFriend",
+            "schema": {
+              "$ref": "#/definitions/MyFriend"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/MyFriend"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/States": {
+      "get": {
+        "operationId": "getStates",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/State"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createState",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "State",
+            "schema": {
+              "$ref": "#/definitions/State"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/State"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Countries({CountryID})": {
+      "delete": {
+        "operationId": "deleteCountry",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "CountryID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getCountryByCountryID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "CountryID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Country"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateCountry",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "CountryID",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "Country",
+            "schema": {
+              "$ref": "#/definitions/Country"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "cancel": {
+        "operationId": "cancelCountryChanges",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Country",
+            "schema": {
+              "$ref": "#/definitions/Country"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Genders({GenderID})": {
+      "delete": {
+        "operationId": "deleteGender",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "GenderID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getGenderByGenderID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "GenderID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Gender"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateGender",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "GenderID",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "Gender",
+            "schema": {
+              "$ref": "#/definitions/Gender"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "cancel": {
+        "operationId": "cancelGenderChanges",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Gender",
+            "schema": {
+              "$ref": "#/definitions/Gender"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/MyFriends({FriendID})": {
+      "delete": {
+        "operationId": "deleteMyFriend",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "FriendID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getMyFriendByFriendID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "FriendID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/MyFriend"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateMyFriend",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "FriendID",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "MyFriend",
+            "schema": {
+              "$ref": "#/definitions/MyFriend"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "cancel": {
+        "operationId": "cancelMyFriendChanges",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "MyFriend",
+            "schema": {
+              "$ref": "#/definitions/MyFriend"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/States({StateID})": {
+      "delete": {
+        "operationId": "deleteState",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "StateID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getStateByStateID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "StateID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/State"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateState",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "StateID",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "State",
+            "schema": {
+              "$ref": "#/definitions/State"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "cancel": {
+        "operationId": "cancelStateChanges",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "State",
+            "schema": {
+              "$ref": "#/definitions/State"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "basePath": "/odata/conData",
+  "host": "localhost:5000",
+  "schemes": [
+    "http"
+  ]
+}

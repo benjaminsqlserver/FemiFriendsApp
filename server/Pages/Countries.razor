@@ -1,0 +1,34 @@
+﻿@page "/"
+@page "/countries"
+@layout MainLayout
+@inherits FemiFriendsApp.Pages.CountriesComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using FemiFriendsApp.Models.ConData
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Countries">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
+        </RadzenButton>
+        <RadzenGrid @ref="grid0" AllowFiltering="true" FilterMode="FilterMode.Advanced" AllowPaging="true" AllowSorting="true" Data="@getCountriesResult" TItem="FemiFriendsApp.Models.ConData.Country" RowSelect="@Grid0RowSelect">
+          <Columns>
+            <RadzenGridColumn TItem="FemiFriendsApp.Models.ConData.Country" Property="CountryID" Title="Country ID">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="FemiFriendsApp.Models.ConData.Country" Property="CountryName" Title="Country Name">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="FemiFriendsApp.Models.ConData.Country" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+              <Template Context="femiFriendsAppModelsConDataCountry">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, femiFriendsAppModelsConDataCountry))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenGridColumn>
+          </Columns>
+        </RadzenGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

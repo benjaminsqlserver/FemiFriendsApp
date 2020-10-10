@@ -1,0 +1,226 @@
+{
+  "components": [
+    {
+      "type": "content",
+      "container": "main",
+      "components": [
+        {
+          "type": "heading",
+          "name": "pageTitle",
+          "size": "H1",
+          "text": "My Friends"
+        },
+        {
+          "type": "row",
+          "components": [
+            {
+              "type": "col",
+              "class": "col-md-12",
+              "components": [
+                {
+                  "icon": "add_circle_outline",
+                  "name": "button0",
+                  "style": {
+                    "marginBottom": "10px"
+                  },
+                  "text": "Add",
+                  "type": "button",
+                  "events": {
+                    "click": [
+                      {
+                        "path": "add-my-friend",
+                        "type": "popup",
+                        "then": [
+                          {
+                            "code": "await grid0.Reload();",
+                            "type": "execute"
+                          },
+                          {
+                            "code": "await InvokeAsync(() => { StateHasChanged(); });",
+                            "type": "execute"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "grid0",
+                  "allowFiltering": true,
+                  "filterMode": "advanced",
+                  "allowPaging": true,
+                  "allowSorting": true,
+                  "data": "${getMyFriendsResult}",
+                  "events": {
+                    "loadData": [],
+                    "rowSelect": [
+                      {
+                        "parameters": [
+                          {
+                            "name": "FriendID",
+                            "value": "${event.FriendID}"
+                          }
+                        ],
+                        "path": "edit-my-friend",
+                        "type": "popup",
+                        "then": [
+                          {
+                            "code": "await InvokeAsync(() => { StateHasChanged(); });",
+                            "type": "execute"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "title": "",
+                  "columns": [
+                    {
+                      "property": "FriendID",
+                      "title": "Friend ID"
+                    },
+                    {
+                      "property": "FirstName",
+                      "title": "First Name"
+                    },
+                    {
+                      "property": "OtherNames",
+                      "title": "Other Names"
+                    },
+                    {
+                      "property": "Surname",
+                      "title": "Surname"
+                    },
+                    {
+                      "property": "GenderID",
+                      "sortProperty": "Gender.GenderName",
+                      "filterProperty": "Gender.GenderName",
+                      "template": "${data.Gender?.GenderName}",
+                      "title": "Gender"
+                    },
+                    {
+                      "property": "DateOfBirth",
+                      "formatString": "{0:dd MMMM yyyy}",
+                      "title": "Date Of Birth"
+                    },
+                    {
+                      "property": "ResidentialAddress",
+                      "title": "Residential Address"
+                    },
+                    {
+                      "property": "City",
+                      "title": "City"
+                    },
+                    {
+                      "property": "CountryID",
+                      "sortProperty": "Country.CountryName",
+                      "filterProperty": "Country.CountryName",
+                      "template": "${data.Country?.CountryName}",
+                      "title": "Country"
+                    },
+                    {
+                      "property": "StateID",
+                      "sortProperty": "State.StateName",
+                      "filterProperty": "State.StateName",
+                      "template": "${data.State?.StateName}",
+                      "title": "State"
+                    },
+                    {
+                      "property": "WhatsappNumber",
+                      "title": "Whatsapp Number"
+                    },
+                    {
+                      "property": "OtherPhoneNumber",
+                      "title": "Other Phone Number"
+                    },
+                    {
+                      "property": "Email",
+                      "title": "Email"
+                    },
+                    {
+                      "property": "Photo",
+                      "title": "Photo"
+                    },
+                    {
+                      "filterable": false,
+                      "sortable": false,
+                      "width": "70px",
+                      "textAlign": "center",
+                      "template": [
+                        {
+                          "attributes": [
+                            {
+                              "name": "@onclick:stopPropagation",
+                              "value": true
+                            }
+                          ],
+                          "buttonStyle": "danger",
+                          "icon": "close",
+                          "name": "gridDeleteButton",
+                          "text": "",
+                          "size": "sm",
+                          "type": "button",
+                          "events": {
+                            "click": [
+                              {
+                                "condition": "await DialogService.Confirm(\"Are you sure you want to delete this record?\") == true",
+                                "error": [
+                                  {
+                                    "detail": "Unable to delete MyFriend",
+                                    "severity": "error",
+                                    "summary": "Error",
+                                    "type": "notify"
+                                  }
+                                ],
+                                "name": "conData.deleteMyFriend",
+                                "parameters": [
+                                  {
+                                    "name": "FriendID",
+                                    "value": "${data.FriendID}"
+                                  }
+                                ],
+                                "then": [
+                                  {
+                                    "code": "await grid0.Reload();",
+                                    "condition": "result != null",
+                                    "type": "execute"
+                                  }
+                                ],
+                                "type": "invoke"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "type": "grid",
+                  "itemType": "FemiFriendsApp.Models.ConData.MyFriend"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "conData.getMyFriends",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getMyFriendsResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<FemiFriendsApp.Models.ConData.MyFriend>"
+          }
+        ],
+        "type": "invoke"
+      }
+    ]
+  },
+  "name": "My Friends",
+  "layout": "Main",
+  "access": []
+}
